@@ -36,7 +36,10 @@ IFS=';' read -ra ARCHES <<< "${MANIFEST_ARCHES[${MANIFEST}]}"
 
 TAGS=()
 for ARCH in "${ARCHES[@]}"; do
-	TAGS+=("${ORG}/${NAME}:${ARCH}${SUFFIX:+-${SUFFIX}}")
+	TAG="${ORG}/${NAME}:${ARCH}${SUFFIX:+-${SUFFIX}}"
+	if docker manifest inspect "${TAG}" 1>/dev/null 2>&1; then
+		TAGS+=("${TAG}")
+	fi
 done
 
 docker manifest create "${ORG}/${MANIFEST}" "${TAGS[@]}"
@@ -47,7 +50,10 @@ MANIFEST="${NAME}:${SUFFIX:+${SUFFIX}-}${VERSION}"
 
 TAGS=()
 for ARCH in "${ARCHES[@]}"; do
-	TAGS+=("${ORG}/${NAME}:${ARCH}${SUFFIX:+-${SUFFIX}}-${VERSION}")
+	TAG="${ORG}/${NAME}:${ARCH}${SUFFIX:+-${SUFFIX}}-${VERSION}"
+	if docker manifest inspect "${TAG}" 1>/dev/null 2>&1; then
+		TAGS+=("${TAG}")
+	fi
 done
 
 docker manifest create "${ORG}/${MANIFEST}" "${TAGS[@]}"
