@@ -8,7 +8,7 @@ FROM --platform=$BUILDPLATFORM alpine:3.11 as builder
 WORKDIR /portage
 
 ARG SNAPSHOT="portage-latest.tar.xz"
-ARG DIST="https://distfiles.gentoo.org/snapshots"
+ARG DIST="https://ftp-osl.osuosl.org/pub/gentoo/snapshots"
 ARG SIGNING_KEY="0xEC590EEAC9189250"
 
 RUN apk add --no-cache ca-certificates gnupg tar wget xz \
