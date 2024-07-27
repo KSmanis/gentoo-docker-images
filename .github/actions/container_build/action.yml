@@ -35,14 +35,14 @@ runs:
     - name: Login to DockerHub
       uses: docker/login-action@v3
       if: |
-        github.ref_name == 'master' && github.repository_owner == 'gentoo' &&
+        github.ref_name == 'master' && github.repository_owner == 'KSmanis' &&
         (github.event_name == 'schedule' || github.event_name == 'push')
       with:
         username: ${{ inputs.dockerhub_username }}
         password: ${{ inputs.dockerhub_password }}
     - name: Push image
       if: |
-        github.ref_name == 'master' && github.repository_owner == 'gentoo' &&
+        github.ref_name == 'master' && github.repository_owner == 'KSmanis' &&
         (github.event_name == 'schedule' || github.event_name == 'push')
       shell: bash
       run: ./deploy.sh
