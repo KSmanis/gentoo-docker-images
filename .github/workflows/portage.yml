@@ -7,7 +7,7 @@ on:
   pull_request:
 
 env:
-  ORG: gentoo
+  ORG: ksmanis
 
 jobs:
   portage:
