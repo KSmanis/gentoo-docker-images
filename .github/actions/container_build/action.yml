@@ -3,10 +3,6 @@ name: Build
 inputs:
   target:
     required: true
-  dockerhub_username:
-    required: true
-  dockerhub_password:
-    required: true
 runs:
   using: composite
   steps:
@@ -32,17 +28,18 @@ runs:
       if: matrix.target != 'portage'
       shell: bash
       run: docker run --rm "${ORG}/${TARGET/-/:}" emerge --info
-    - name: Login to DockerHub
+    - name: Login to GHCR
       uses: docker/login-action@v3
       if: |
-        github.ref_name == 'master' && github.repository_owner == 'gentoo' &&
+        github.ref_name == 'master' && github.repository_owner == 'KSmanis' &&
         (github.event_name == 'schedule' || github.event_name == 'push')
       with:
-        username: ${{ inputs.dockerhub_username }}
-        password: ${{ inputs.dockerhub_password }}
+        registry: ghcr.io
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
     - name: Push image
       if: |
-        github.ref_name == 'master' && github.repository_owner == 'gentoo' &&
+        github.ref_name == 'master' && github.repository_owner == 'KSmanis' &&
         (github.event_name == 'schedule' || github.event_name == 'push')
       shell: bash
       run: ./deploy.sh

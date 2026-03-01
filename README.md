@@ -1,16 +1,17 @@
 # Gentoo Docker Images
 
-[![build](https://github.com/gentoo/gentoo-docker-images/workflows/build/badge.svg)](https://github.com/gentoo/gentoo-docker-images/actions?workflow=build)
+[![build](https://github.com/KSmanis/gentoo-docker-images/actions/workflows/build.yml/badge.svg)](https://github.com/KSmanis/gentoo-docker-images/actions/workflows/build.yml)
+[![portage](https://github.com/KSmanis/gentoo-docker-images/actions/workflows/portage.yml/badge.svg)](https://github.com/KSmanis/gentoo-docker-images/actions/workflows/portage.yml)
 
 A collection of Dockerfiles for generating Gentoo docker images.
 
 These images are intended to be created automatically by
-a cron job and pushed to [docker hub](https://hub.docker.com/u/gentoo/).
+a cron job and pushed to [GitHub Container Registry](https://github.com/KSmanis?tab=packages).
 This repository include basic stage3 images and an image usable as a `/var/db/repos/gentoo` volume
 
-# DockerHub
+# GitHub Container Registry
 
-https://hub.docker.com/u/gentoo/
+https://github.com/KSmanis?tab=packages
 
 ## Inventory
 
@@ -129,8 +130,8 @@ The container being built is defined by the TARGET environment variable:
 # Using the portage container as a data volume
 
 ```
-docker create -v /var/db/repos/gentoo --name myportagesnapshot gentoo/portage:latest /bin/true
-docker run --interactive --tty --volumes-from myportagesnapshot gentoo/stage3:latest /bin/bash
+docker create -v /var/db/repos/gentoo --name myportagesnapshot ghcr.io/ksmanis/portage:latest /bin/true
+docker run --interactive --tty --volumes-from myportagesnapshot ghcr.io/ksmanis/stage3:latest /bin/bash
 ```
 
 # Using the portage container in a multi-stage build
@@ -141,10 +142,10 @@ Example _Dockerfile_
 
 ```
 # name the portage image
-FROM gentoo/portage:latest as portage
+FROM ghcr.io/ksmanis/portage:latest as portage
 
 # based on stage3 image
-FROM gentoo/stage3:latest
+FROM ghcr.io/ksmanis/stage3:latest
 
 # copy the entire portage volume in
 COPY --from=portage /var/db/repos/gentoo /var/db/repos/gentoo

@@ -3,21 +3,18 @@ name: Build manifest
 inputs:
   target:
     required: true
-  dockerhub_username:
-    required: true
-  dockerhub_password:
-    required: true
 runs:
   using: composite
   steps:
     - name: Set up TARGET
       run: echo "TARGET=${{ inputs.target }}" | tee $GITHUB_ENV
       shell: bash
-    - name: Login to DockerHub
+    - name: Login to GHCR
       uses: docker/login-action@v3
       with:
-        username: ${{ inputs.dockerhub_username }}
-        password: ${{ inputs.dockerhub_password }}
+        registry: ghcr.io
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
     - name: Push manifests
       shell: bash
       env:

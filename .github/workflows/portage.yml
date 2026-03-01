@@ -7,7 +7,11 @@ on:
   pull_request:
 
 env:
-  ORG: gentoo
+  ORG: ghcr.io/ksmanis
+
+permissions:
+  contents: read
+  packages: write
 
 jobs:
   portage:
@@ -26,5 +30,3 @@ jobs:
         uses: ./.github/actions/container_build
         with:
           target: ${{ matrix.target }}
-          dockerhub_username: ${{ secrets.DOCKERHUB_USERNAME }}
-          dockerhub_password: ${{ secrets.DOCKERHUB_PASSWORD }}
