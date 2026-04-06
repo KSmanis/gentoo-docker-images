@@ -3,6 +3,10 @@ name: Build
 inputs:
   target:
     required: true
+  dockerhub_username:
+    required: true
+  dockerhub_password:
+    required: true
 runs:
   using: composite
   steps:
@@ -35,8 +39,8 @@ runs:
         (github.event_name == 'schedule' || github.event_name == 'push')
       with:
         registry: ghcr.io
-        username: ${{ github.actor }}
-        password: ${{ secrets.GITHUB_TOKEN }}
+        username: ${{ inputs.dockerhub_username }}
+        password: ${{ inputs.dockerhub_password }}
     - name: Push image
       if: |
         github.ref_name == 'master' && github.repository_owner == 'KSmanis' &&

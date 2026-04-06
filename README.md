@@ -1,7 +1,6 @@
 # Gentoo Docker Images
 
-[![build](https://github.com/KSmanis/gentoo-docker-images/actions/workflows/build.yml/badge.svg)](https://github.com/KSmanis/gentoo-docker-images/actions/workflows/build.yml)
-[![portage](https://github.com/KSmanis/gentoo-docker-images/actions/workflows/portage.yml/badge.svg)](https://github.com/KSmanis/gentoo-docker-images/actions/workflows/portage.yml)
+[![build](https://github.com/KSmanis/gentoo-docker-images/workflows/build/badge.svg)](https://github.com/KSmanis/gentoo-docker-images/actions?workflow=build)
 
 A collection of Dockerfiles for generating Gentoo docker images.
 

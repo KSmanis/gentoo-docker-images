@@ -30,3 +30,5 @@ jobs:
         uses: ./.github/actions/container_build
         with:
           target: ${{ matrix.target }}
+          dockerhub_username: ${{ github.actor }}
+          dockerhub_password: ${{ secrets.GITHUB_TOKEN }}
